@@ -1,22 +1,9 @@
 import express, { Request, Response, Router } from 'express';
-import fs from 'fs';
 import path from 'path';
-import Game from '../interfaces/game';
+import { JsonManager } from '../managers/JsonManager';
+import Game from '../interfaces/Game';
 
 const router: Router = express.Router();
-
-// Helper function to asynchronously read data from a JSON file
-const readJsonFile = async (filePath: string): Promise<Game[]> => {
-  return new Promise((resolve, reject) => {
-    fs.readFile(filePath, { encoding: 'utf-8' }, (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(JSON.parse(data) as Game[]);
-      }
-    });
-  });
-};
 
 // GET endpoint to return all games or filter by title/provider name
 router.get('/', async (req: Request, res: Response) => {
@@ -24,7 +11,7 @@ router.get('/', async (req: Request, res: Response) => {
 
   try {
     const filePath = path.join(__dirname, '..', 'data', 'games.json');
-    let games = await readJsonFile(filePath);
+    let games: Game[] = await JsonManager.readFile(filePath);
 
     if (searchText) {
       games = games.filter(
