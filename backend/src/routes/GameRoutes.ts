@@ -23,8 +23,7 @@ router.get('/', async (req: Request, res: Response) => {
 
     res.status(200).json(games);
   } catch (error) {
-    console.error('Failed to read games data:', error);
-    res.status(500).send('Error reading games data.');
+    res.status(500).send({ msg: 'Error reading games data.' });
   }
 });
 

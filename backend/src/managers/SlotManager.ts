@@ -6,6 +6,7 @@ import {
 import { Reel } from '../types/Reel';
 import User from '../interfaces/User';
 import { UserRepo } from '../repo/UserRepo';
+import InsufficientFundsError from '../customErrors/InsufficientFundsError';
 
 export default class SlotManager {
   static spin({
@@ -32,7 +33,8 @@ export default class SlotManager {
       UserRepo.updateUser(user);
       return { balance: user.balance, totalWin, grid };
     } else {
-      console.log('Insufficient Funds');
+      //ERROR TEXT COULD BE IMPROVED BUT FOR TEST PURPOSES DIDN'T GET INTO DETAIL
+      throw new InsufficientFundsError('Insufficient funds');
     }
   }
 
@@ -83,9 +85,6 @@ export default class SlotManager {
       consecutiveOccurrences,
       symbolRewards,
     });
-
-    if (totalWin)
-      console.log(symbol, symbolRewards, consecutiveOccurrences, totalWin);
 
     return totalWin;
   }
