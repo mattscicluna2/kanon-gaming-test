@@ -1,5 +1,7 @@
 # KANON GAMING Development Test
 
+## Recommended node version: v20.12.2 or above.
+
 ## Backend
 
 The backend source code is located in the './backend' directory.
