@@ -1,6 +1,6 @@
 DROP DATABASE casino_db;
 
-CREATE DATABASE IF NOT EXISTS `casino_db`
+CREATE DATABASE IF NOT EXISTS `casino_db`;
 USE `casino_db`;
 
 CREATE TABLE IF NOT EXISTS `countries` (
@@ -10,8 +10,14 @@ CREATE TABLE IF NOT EXISTS `countries` (
   PRIMARY KEY (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `game_types` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
 CREATE TABLE IF NOT EXISTS `games` (
-  `id` int(11) NOT NULL AUTO_INCREMENT, 
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `type_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
@@ -30,14 +36,9 @@ CREATE TABLE IF NOT EXISTS `game_allowed_countries` (
   CONSTRAINT `FK__games` FOREIGN KEY (`game_id`) REFERENCES `games` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-CREATE TABLE IF NOT EXISTS `game_types` (
-  `id` int(11) NOT NULL AUTO_INCREMENT, 
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-);
 
 CREATE TABLE IF NOT EXISTS `players` (
-  `id` int(11) NOT NULL AUTO_INCREMENT, 
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `country_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
